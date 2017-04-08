@@ -1,24 +1,56 @@
 console.log("js loaded")
 
 
+const firstKey = document.getElementById("firstKey");
+// const firstKey = document.querySelectorAll("firstKey");
+// console.log("first key a should ...", firstKey)
+// const keysToPress  = document.getElementsByClassName('key');
+const keysToPress  = document.querySelectorAll('.key');
+// keys.onclick = playSound;
+console.log(keysToPress);
+keysToPress.forEach( key => {
+  console.log(key);
+  key.addEventListener("transitionend", function(event) {
+    console.log("Done!");
+    console.log(event);
+    console.log(this)
+    this.classList.remove("playing");
+  });
+
+
+
+});
+
+
+
 // document.onkeyup = function keyPlay(event){
 
 var playSound = function(e) {
-  console.log("playing sound")
-  console.log(e)
-  console.log(e.key)
+  // console.log("playing sound")
+  // console.log(e)
+  // console.log(e.key)
   // console.log(e.keyCode)
 
   // debugger
 
   var keyPressed = e.keyCode;
   console.log(keyPressed)
-  console.log(typeof keyPressed)
+  // console.log(typeof keyPressed)
   let audio = document.querySelector(`audio[data-key="${keyPressed}"]`)
-  console.log(audio);
-  if(audio !== null){
+  let key = document.querySelector(`.key[data-key="${keyPressed}"]`)
+  console.log(key)
+  // debugger
+  // console.log(audio);
+
+  if(audio == null){
+    console.log("nothing will play")
+
+  } else {
+
     audio.currentTime = 0;
     audio.play();
+    key.classList.add("playing");
+    // key.classList.remove("playing");
   }
 
 
@@ -66,6 +98,7 @@ var playSound = function(e) {
 
     default:
       console.error("Please hit a valid key");
+      return
   }
 
 }
@@ -88,9 +121,6 @@ window.addEventListener("keypress", function(){
 
 
 
-var keysToPress  = document.getElementsByClassName('key');
-// keys.onclick = playSound;
-console.log(keysToPress)
 // console.log(keys.onclick)
 
 // for( key in keysToPress) {
